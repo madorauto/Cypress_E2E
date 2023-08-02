@@ -1,9 +1,15 @@
 import loginPageActions from "../pageActions/loginPageActions.js";
 import dashboardPageAssertions from "../assertions/dashboardPageAssertions.js";
+import loginPageAssertions from "../assertions/loginPageAssertions.js";
+
 describe ('Login',()=>
 {
+    const login = new loginPageActions()
+    const dashboardAssertions = new dashboardPageAssertions()
+    const loginAssertions = new loginPageAssertions()
+
     let logindata
-    before( ()=>{
+    beforeEach( ()=>{
         cy.visit('/login')
         cy.fixture('login').then((data) =>{
             logindata=data
@@ -11,12 +17,38 @@ describe ('Login',()=>
     })
     it ('Valid Login', ()=>
     {
-        const login = new loginPageActions()
-        const dashboard = new dashboardPageAssertions()
+        loginAssertions.validateLoginPage()
         login.inputUserName(logindata.valid_email)
         login.inputPassword(logindata.valid_password)
         login.clickLogin()
-        dashboard.validateLogo()
-        dashboard.validateLogo()
+        dashboardAssertions.validateLogo()
+        dashboardAssertions.validateLogo()
+    })
+    it ('Invalid Email and Password Login', ()=>
+    {   
+        loginAssertions.validateLoginPage()
+        login.inputUserName(logindata.invalid_email)
+        login.inputPassword(logindata.invalid_password)
+        login.clickLogin()
+        loginAssertions.validateEmailErrorMessage()
+        
+    })
+    it ('Invalid Email Login', ()=>
+    {
+        loginAssertions.validateLoginPage()
+        login.inputUserName(logindata.invalid_email)
+        login.inputPassword(logindata.valid_password)
+        login.clickLogin()
+        loginAssertions.validateEmailErrorMessage()
+        
+    })
+    it ('Invalid Password Login', ()=>
+    {
+        loginAssertions.validateLoginPage()
+        login.inputUserName(logindata.valid_email)
+        login.inputPassword(logindata.invalid_password)
+        login.clickLogin()
+        loginAssertions.validatePasswordErrorMessage()
+        
     })
 })

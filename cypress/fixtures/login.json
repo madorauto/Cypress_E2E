@@ -1,4 +1,6 @@
 {
     "valid_email": "admin@yourstore.com",
-    "valid_password": "admin" 
+    "valid_password": "admin",
+    "invalid_email": "invalid@yourstore.com",
+    "invalid_password": "invalid"
 }
