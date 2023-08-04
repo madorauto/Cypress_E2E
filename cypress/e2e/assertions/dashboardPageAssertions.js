@@ -16,7 +16,7 @@ class dashboardPageAssertions
         cy.get(this.dashboardPageLocator.dashboardHeader)
         .should('be.visible')
         .and('be.exist')
-        .and('eq','Dashboard')
+        .and('contain','Dashboard')
     }
 
 }

@@ -22,7 +22,7 @@ describe ('Login',()=>
         login.inputPassword(logindata.valid_password)
         login.clickLogin()
         dashboardAssertions.validateLogo()
-        dashboardAssertions.validateLogo()
+        dashboardAssertions.validateDashboardHeader()
     })
     it ('Invalid Email and Password Login', ()=>
     {   
